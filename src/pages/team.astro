@@ -1,27 +1,41 @@
 ---
+import { existsSync } from "node:fs";
 import { EDITOR_EMAIL } from "../lib/contact";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { withBase } from "../lib/paths";
+
+const PUBLIC_DIR = new URL("../../public/", import.meta.url);
+
+function resolvePublicImage(candidates) {
+  const match = candidates.find((candidate) => existsSync(new URL(candidate, PUBLIC_DIR)));
+  return match ? withBase(match) : null;
+}
 
 const leaders = [
   {
     name: "Cardo",
     role: "Editor-in-Chief",
-    image: withBase("editors/cardo.jpg"),
+    image: resolvePublicImage(["editors/cardo.jpg", "team/cardo.jpg"]),
     alt: "Headshot of Cardo, Editor-in-Chief",
     bio: "Cardo leads the journal's editorial direction with a focus on methodologically rigorous work in culturally 'non-serious' domains. Editorial decisions emphasize documentation quality, defensible inference, ethics, and auditability over topic prestige.",
   },
   {
     name: "Nicholas C.F",
     role: "Deputy Editor",
-    image: withBase("editors/nicholas-cf.jpg"),
+    image: resolvePublicImage(["editors/nicholas-cf.jpg", "team/nicholas.jpg"]),
     alt: "Headshot of Nicholas C.F, Deputy Editor",
     bio: "Nicholas C.F oversees review workflows, methods consistency, and standards for submissions in memetic, subcultural, taboo-adjacent, and emerging topic areas. He prioritizes transparent scope definition, non-harm framing, and reproducible editorial reasoning.",
+  },
+  {
+    name: "huihui",
+    role: "Responsible Editor",
+    image: resolvePublicImage(["editors/huihui.jpg", "editors/az.jpg", "team/huihui.jpg", "team/az.jpg"]),
+    alt: "Headshot of huihui, Responsible Editor",
+    bio: "huihui handles copy consistency, issue assembly, and production checks for this demo masthead, and ensures disclaimers and ethics language stay consistent across method-serious pieces on unserious domains.",
   },
 ];
 
 const openRoles = [
-  "Managing Editor",
   "Copy Editor",
   "Art Director",
   "Systems Editor",
@@ -50,16 +64,24 @@ const openRoles = [
     <div class="container">
       <div class="grid-2">
         {leaders.map((leader) => (
-          <article class="panel">
-            <div style="padding: 1rem;">
-              <img
-                src={leader.image}
-                alt={leader.alt}
-                loading="lazy"
-                width="720"
-                height="720"
-                style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg-strong) 85%, transparent);"
-              />
+          <article class="panel leader-card">
+            <div class="leader-card__inner">
+              <div class="leader-card__media">
+                {leader.image ? (
+                  <img
+                    class="leader-card__image"
+                    src={leader.image}
+                    alt={leader.alt}
+                    loading="lazy"
+                    width="640"
+                    height="640"
+                  />
+                ) : (
+                  <p class="leader-card__missing" role="status">
+                    Headshot unavailable (image asset missing).
+                  </p>
+                )}
+              </div>
               <div style="margin-top: 0.9rem;">
                 <div class="article-actions" style="margin-top: 0;">
                   <span class="badge badge--type">{leader.role}</span>
@@ -131,3 +153,37 @@ const openRoles = [
     </div>
   </section>
 </SiteLayout>
+
+<style>
+  .leader-card__inner {
+    padding: 1rem;
+  }
+
+  .leader-card__media {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .leader-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg-strong) 85%, transparent);
+  }
+
+  .leader-card__missing {
+    margin: 0;
+    padding: 0.65rem 0.8rem;
+    border-radius: 12px;
+    border: 1px dashed var(--line);
+    background: color-mix(in srgb, var(--bg-strong) 65%, transparent);
+    color: var(--ink-muted, var(--text-muted, inherit));
+    font-size: 0.9rem;
+    line-height: 1.35;
+    text-align: center;
+  }
+</style>

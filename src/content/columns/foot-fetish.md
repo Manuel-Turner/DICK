@@ -8,8 +8,7 @@ callForPapers: |
 
   Out of scope: explicit sexual content, erotic instruction, solicitation, cataloging of explicit material, or submissions that primarily aim to provoke rather than analyze social processes.
 editors:
-  - "A. M. Hargrove"
-  - "Nina Patel"
+  - "Cardo"
 updated: "2026-02-10"
 status: "Open"
 ---

@@ -8,7 +8,7 @@ callForPapers: |
 
   Out of scope: personal accusations without evidence, identifiable gossip, advice intended to exploit power asymmetries, or submissions that encourage policy circumvention.
 editors:
-  - "J. Elena Morris"
+  - "Cardo"
 updated: "2026-01-28"
 status: "Seasonal"
 ---

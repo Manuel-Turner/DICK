@@ -8,8 +8,7 @@ callForPapers: |
 
   Out of scope: derogatory framing, decontextualized examples intended to inflame, or submissions that treat identity categories as punchlines rather than objects of scholarly analysis.
 editors:
-  - "Farah N. Idris"
-  - "Owen T. Blake"
+  - "huihui"
 updated: "2025-12-12"
 status: "Closed"
 ---

@@ -8,8 +8,7 @@ callForPapers: |
 
   Out of scope: instructions for creating cheats, evading anti-cheat systems, operational exploit development, or deployment guidance that facilitates wrongdoing.
 editors:
-  - "R. K. Solomon"
-  - "Mei-Ling Zhou"
+  - "nicolas"
 updated: "2026-02-16"
 status: "Open"
 ---
