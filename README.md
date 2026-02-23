@@ -1,64 +1,145 @@
-# Astro Starter Kit: Minimal
+````markdown
+# DICK — *Disciplinary Inquiries into Casual Knowledge* (Demo Journal Portal)
 
-```sh
-npm create astro@latest -- --template minimal
-```
+DICK is a **demo** academic-journal portal that showcases editorial workflows and UI patterns for a journal whose core ethos is **serious methods, unserious domains**. The repository emphasizes credible journal-grade information architecture, submission/access flows, and policy-bound presentation—**not** real publishing operations.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **Demo status:** This site and its contents exist to demonstrate editorial workflows and UI patterns. It is not a live journal service.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Scope and Sections
+
+Depending on the current implementation (see `src/pages/`), the site typically includes:
+
+- **Home** — journal positioning and primary entry points  
+- **Articles / Archive** — listing, filters, and access routing (OA / Non-OA)  
+- **Article Detail** — metadata + abstract; OA full text or Non-OA gating  
+- **Columns** — thematic sections and calls for papers (status, scope notes, editors)  
+- **Aims & Scope / Policies** — methods standards, ethics, and editorial boundaries  
+- **Team / Masthead** — named roles + open roles (vacant)  
+- **Submit** — submission workflow (demo implementation)
+
+---
+
+## Editorial & Compliance Constraints (Hard Rules)
+
+This project must comply with the following non-negotiable constraints:
+
+1. **Demo site and content**  
+   All demo articles must be labeled **“DEMO”** and include a demo notice.
+
+2. **No DOI**  
+   Do **not** mention, display, or imply any real DOI. Do **not** imply DOI registration.
+
+3. **Demo authorship convention**  
+   All demo article authors are listed as **“Cardo”** (site demonstration rule), without exceptions.
+
+4. **Access model (OA vs Non-OA)**  
+   - **OA** pages display full text.  
+   - **Non-OA** pages keep metadata/abstract public while gating full text.
+
+5. **Payment/contact flows are illustrative only**  
+   Any QR/payment/contact flow is a UI example only: it **does not** process real payments, **does not** automatically provision access, and **does not** collect sensitive payment data.
+
+6. **Editorial boundaries (must be visible in key entry points)**  
+   The site must explicitly exclude:  
+   - explicit sexual content  
+   - illegal how-to content  
+   - cheating construction or evasion guides  
+   - doxxing or personal accusations  
+   Sensitive topics require non-harm framing and appropriate anonymization.
+
+7. **Contact email must be present**  
+   Editor contact: **m_turner@163.com**
+
+---
+
+## Tech Stack
+
+- **Astro** (site framework)
+- Node.js + npm
+- Static assets served from `public/`
+
+If additional UI components are used (Astro/React/etc.), place them under `src/components/` and keep props explicit and auditable (no hidden side effects).
+
+---
+
+## Project Structure
 
 ```text
 /
-├── public/
+├── public/                 # Static assets (images, icons, etc.)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── pages/              # Routes (.astro / .md)
+│   ├── components/         # UI components (optional)
+│   ├── layouts/            # Shared layouts (optional)
+│   └── content/            # Content collections (optional)
 └── package.json
-```
+````
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Astro maps `.astro` / `.md` files in `src/pages/` to routes based on file names. Static assets belong in `public/`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Local Development
 
-## 🧞 Commands
+Run commands from the project root:
 
-All commands are run from the root of the project, from a terminal:
+| Command             | Action                                      |
+| ------------------- | ------------------------------------------- |
+| `npm install`       | Install dependencies                        |
+| `npm run dev`       | Start dev server at `http://localhost:4321` |
+| `npm run build`     | Build production site to `./dist/`          |
+| `npm run preview`   | Preview the production build locally        |
+| `npm run astro ...` | Run Astro CLI (e.g., `astro check`)         |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
 
-## 👀 Want to learn more?
+## Deployment — GitHub Pages (Manuel-Turner/DICK)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This repository deploys to GitHub Pages via **GitHub Actions**.
 
-## GitHub Pages Deployment (Manuel-Turner/DICK)
+1. In GitHub: `Settings → Pages`
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. Push to `main` (or manually run the workflow from the `Actions` tab via `workflow_dispatch`)
 
-This repository is configured to deploy to GitHub Pages using GitHub Actions.
+Pages URL:
 
-1. Go to `Settings -> Pages` in GitHub.
-2. Under `Build and deployment`, set `Source` to `GitHub Actions`.
-3. Push to `main` (or run the workflow manually from the `Actions` tab with `workflow_dispatch`).
+* `https://manuel-turner.github.io/DICK/`
 
-The Pages site URL is:
+### Astro `site` / `base` configuration
 
-- `https://manuel-turner.github.io/DICK/`
-
-Astro base URL settings are already configured in `astro.config.mjs`:
+GitHub Pages serves this site under the `/DICK/` subpath. Ensure `astro.config.mjs` includes:
 
 ```js
 site: "https://manuel-turner.github.io",
 base: "/DICK",
 ```
 
-This is required so built asset paths resolve correctly on the `/DICK/` GitHub Pages subpath.
+This is required so built asset paths resolve correctly under the `/DICK/` subpath.
+
+---
+
+## Content Authoring Notes
+
+* **Demo articles:** must display a “DEMO” label and a demo notice; author must be **Cardo**.
+* **Non-OA pages:** only metadata + abstract are public; full text must be gated with an explicit notice.
+* **Policies/boundaries:** use academic, auditable language; avoid marketing tone; apply non-harm framing and anonymization for sensitive topics.
+
+---
+
+## Contact
+
+Editorial / demo inquiries: **[m_turner@163.com](mailto:m_turner@163.com)**
+
+---
+
+## References
+
+* Astro Docs: [https://docs.astro.build](https://docs.astro.build)
+* Astro Community Chat: [https://astro.build/chat](https://astro.build/chat)
+
+```
+::contentReference[oaicite:0]{index=0}
+```
+
